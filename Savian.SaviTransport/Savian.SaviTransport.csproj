@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Copyright>Savian, LLC. Copyright 2020. All rights reserved.</Copyright>
+    <Description>Converts SAS transport format (xpt) files to a library object. Optionally, exports the XP data into multiple formats including (CSV, tab, JSON, XML).</Description>
+    <Version>1.0.0.3</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <DocumentationFile>X:\repos\Utilities\Savian.SaviTransport\Savian.SaviTransport\Savian.SaviTransport.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Converters\" />
+    <Content Include="ReadMe.md">
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Savian.SaviTransport.xml">
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(ProjectDir)SaviTransport_ReadMe.md&quot; &quot;X:\repos\Savian.NuGet&quot; /Y&#xD;&#xA;copy &quot;$(ProjectDir)Savian.SaviTransport.xml&quot; &quot;X:\repos\Savian.NuGet&quot;  /Y&#xD;&#xA;" />
+  </Target>
+</Project>
