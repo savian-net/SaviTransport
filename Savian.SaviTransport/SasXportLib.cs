@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Savian.SaviTransport
         public DateTime ModifiedDateTime { get; set; }
         public string HostCreated { get; set; }
         public string ReleaseCreated { get; set; }
-        public List<SasXportData> DataSets { get; set; }
+        public List<SasXportData> XportDataSets { get; set; }
 
         private SasXportLib saslib;
         private Stream s;
@@ -27,7 +28,7 @@ namespace Savian.SaviTransport
 
         public SasXportLib()
         {
-            DataSets = new List<SasXportData>();
+            XportDataSets = new List<SasXportData>();
             conv = new Converter();
         }
 
@@ -105,14 +106,14 @@ namespace Savian.SaviTransport
             else if (rec.StartsWith("HEADER RECORD*******OBS     HEADER RECORD!!!!!!!"))
             {
                 var streamLength = s.Length - s.Position;
-                while (streamLength > 0)
+                while (streamLength > obsLength)
                 {
                     var obs = ReadRecord(streamLength);
                     sasdata.Observations.Add(obs);
                     streamLength -= obsLength;
                     bytesLeft -= obsLength;
                 }
-                DataSets.Add(sasdata);
+                XportDataSets.Add(sasdata);
             }
         }
 
@@ -236,7 +237,26 @@ namespace Savian.SaviTransport
             sv.InformatLengthInteger = ReverseEndian(rec.Subset(80, 2).GetShortValue());
             sv.InformatLengthDecimal = ReverseEndian(rec.Subset(82, 2).GetShortValue());
             sv.Position = ReverseEndian(rec.Subset(84, 4).GetIntValue());
+            sv.NetType = DetermineDotNetType(sv.VariableType, sv.FormatName);
             return sv;
+        }
+
+        private Type DetermineDotNetType(SasVariableType variableType, string formatName)
+        {
+            switch (variableType)
+            {
+                case SasVariableType.Numeric:
+                    var format = Common.Formats.FirstOrDefault(q => q.Name.StartsWith(formatName));
+                    if (format.ContentType == ContentType.Date || format.ContentType == ContentType.DateTime)
+                    {
+                        return typeof(DateTime);
+                    }
+                    return typeof(double);
+                case SasVariableType.Character:
+                    return typeof(string);
+                default:
+                    return typeof(double);
+            }
         }
 
         /// <summary>
@@ -351,5 +371,36 @@ namespace Savian.SaviTransport
             saslib.ModifiedDateTime = DateTime.ParseExact(rec2.Substring(0, 16), "ddMMMyy:HH:mm:ss",
                                                       CultureInfo.InvariantCulture);
         }
+
+
+        /// <summary>
+        /// Creates a dataset
+        /// </summary>
+        /// <param name="lib">The parsed SAS XPT file</param>
+        public DataSet ToDataSet()
+        {
+            var ds = new DataSet();
+            foreach (var xds in this.XportDataSets)
+            {
+                var dt = new DataTable(xds.Name);
+                foreach (var v in xds.Variables)
+                {
+                    dt.Columns.Add(v.Name, v.NetType);
+                }
+
+                foreach (var obs in xds.Observations)
+                {
+                    var dr = dt.Rows.Add();
+                    foreach (var c in obs.Cells)
+                    {
+                        dr[c.Column] = c.Value;
+                    }
+                }
+                ds.Tables.Add(dt);
+            }
+
+            return ds;
+        }
+
     }
 }

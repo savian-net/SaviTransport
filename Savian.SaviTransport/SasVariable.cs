@@ -46,6 +46,7 @@ namespace Savian.SaviTransport
         internal int WriteOrder { get; set; }
         internal int StartByteInObservation { get; set; }
         public SasVariableType VariableType { get; set; }
+        public Type NetType { get; set; }
         internal VariableChunkValue MiniChunk { get; set; }
 
         #endregion

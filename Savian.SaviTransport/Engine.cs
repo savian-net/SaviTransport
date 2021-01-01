@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Text.Json;
 using System.Xml.Linq;
@@ -79,13 +80,13 @@ namespace Savian.SaviTransport
             var xd = new XDocument();
             var xeRoot = new XElement("SasData");
 
-            for (var i = 0; i < lib.DataSets[0].Observations.Count; i++)
+            for (var i = 0; i < lib.XportDataSets[0].Observations.Count; i++)
             {
                 var xeObs = new XElement("Observation");
-                var obs = lib.DataSets[0].Observations[i];
+                var obs = lib.XportDataSets[0].Observations[i];
                 foreach (var cell in obs.Cells)
                 {
-                    var sv = lib.DataSets[0].Variables[cell.Column];
+                    var sv = lib.XportDataSets[0].Variables[cell.Column];
                     var xeValue = new XElement(sv.Name);
                     xeValue.Value = cell.Value.ToString();
                     xeObs.Add(xeValue);
@@ -103,7 +104,7 @@ namespace Savian.SaviTransport
         private static void CreateDelimitedFile(SasXportLib lib)
         {
             var sw = new StreamWriter(Common.Options.OutputFile);
-            var data = lib.DataSets[0];
+            var data = lib.XportDataSets[0];
             foreach (var sv in data.Variables)
             {
                 sw.Write(sv.Name + Common.Options.Delimiter);

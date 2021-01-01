@@ -232,5 +232,11 @@
             </summary>
             <param name="rec">The record to parse</param>
         </member>
+        <member name="M:Savian.SaviTransport.SasXportLib.ToDataSet">
+            <summary>
+            Creates a dataset
+            </summary>
+            <param name="lib">The parsed SAS XPT file</param>
+        </member>
     </members>
 </doc>
