@@ -6,17 +6,17 @@
     <members>
         <member name="P:Savian.SaviTransport.Common.Formats">
             <summary>
-            A list of SAS formats/informats. These are used to help determine whether a field is a date/datetime
+                A list of SAS formats/informats. These are used to help determine whether a field is a date/datetime
             </summary>
         </member>
         <member name="P:Savian.SaviTransport.Common.Options">
             <summary>
-            The options passed in on the command line
+                The options passed in on the command line
             </summary>
         </member>
         <member name="M:Savian.SaviTransport.Common.ConvertSasToNetDateTime(System.Double,System.Boolean)">
             <summary>
-            Converts a SAS Date/DateTime value to a .NET DateTime value
+                Converts a SAS Date/DateTime value to a .NET DateTime value
             </summary>
             <param name="dateTime">The SAS date/datetime value</param>
             <param name="date">Whether the value being passed is a SAS date or datetime</param>
@@ -24,7 +24,7 @@
         </member>
         <member name="M:Savian.SaviTransport.Common.ConvertNetToSasDateTime(System.DateTime,System.Boolean)">
             <summary>
-            Converts a .NET datetime value to a SAS date or datetime value
+                Converts a .NET datetime value to a SAS date or datetime value
             </summary>
             <param name="dt">.NET datetime</param>
             <param name="date">Whether a SAS date or datetime value is returned</param>
@@ -32,7 +32,7 @@
         </member>
         <member name="M:Savian.SaviTransport.Converter.ConvertBytesToDouble(Savian.SaviTransport.Platform,System.Byte[])">
             <summary>
-            Converts a series of bytes to a double after conversion. Only 8 bytes are allowed.
+                Converts a series of bytes to a double after conversion. Only 8 bytes are allowed.
             </summary>
             <param name="platform">The platform where the bytes originated</param>
             <param name="bytes">The series of byte sto evaulate</param>
@@ -40,7 +40,7 @@
         </member>
         <member name="M:Savian.SaviTransport.Converter.ConvertBytesToSingle(Savian.SaviTransport.Platform,System.Byte[])">
             <summary>
-            Converts a series of bytes to a single after conversion. Only 4 bytes are allowed.
+                Converts a series of bytes to a single after conversion. Only 4 bytes are allowed.
             </summary>
             <param name="platform">The platform where the bytes originated</param>
             <param name="bytes">The series of byte sto evaulate</param>
@@ -48,15 +48,18 @@
         </member>
         <member name="M:Savian.SaviTransport.Converter.ConvertDoubleToBytes(Savian.SaviTransport.Platform,System.Double)">
             <summary>
-            Converts a double to a series of bytes.
+                Converts a double to a series of bytes.
             </summary>
-            <param name="platform">The platform where the bytes are destined. A VAX does not use a double so the return value will always be 0 for a VAX.</param>
+            <param name="platform">
+                The platform where the bytes are destined. A VAX does not use a double so the return value will
+                always be 0 for a VAX.
+            </param>
             <param name="value">The double value to convert to bytes</param>
             <returns>A byte array</returns>
         </member>
         <member name="M:Savian.SaviTransport.Converter.ConvertSingleToBytes(Savian.SaviTransport.Platform,System.Single)">
             <summary>
-            Converts a single to a series of bytes.
+                Converts a single to a series of bytes.
             </summary>
             <param name="platform">The platform where the bytes are destined.</param>
             <param name="value">The single value to convert to bytes</param>
@@ -64,94 +67,93 @@
         </member>
         <member name="T:Savian.SaviTransport.Engine">
             <summary>
-            Main entry point for SaviTransport
+                Main entry point for SaviTransport
             </summary>
         </member>
         <member name="M:Savian.SaviTransport.Engine.Process(Savian.SaviTransport.Options)">
             <summary>
-            Processes a SAS transport file and converts it to a return object
+                Processes a SAS transport file and converts it to a return object
             </summary>
             <param name="options">The options to use for processing a SAS transport format file</param>
             <returns>A SasXportLib object containing all of the information, and data, for a SAS transport file</returns>
         </member>
         <member name="M:Savian.SaviTransport.Engine.CreateOutputFile(Savian.SaviTransport.SasXportLib)">
             <summary>
-            Determines the type of output file
+                Determines the type of output file
             </summary>
             <param name="lib">The parsed SAS XPT file</param>
         </member>
         <member name="M:Savian.SaviTransport.Engine.CreateJsonFile(Savian.SaviTransport.SasXportLib)">
             <summary>
-            Creates a JSON file
+                Creates a JSON file
             </summary>
             <param name="lib">The parsed SAS XPT file</param>
         </member>
         <member name="M:Savian.SaviTransport.Engine.CreateXmlFile(Savian.SaviTransport.SasXportLib)">
             <summary>
-            Creates an XML file
+                Creates an XML file
             </summary>
             <param name="lib">The parsed SAS XPT file</param>
         </member>
         <member name="M:Savian.SaviTransport.Engine.CreateDelimitedFile(Savian.SaviTransport.SasXportLib)">
             <summary>
-            Creates a delimited file
+                Creates a delimited file
             </summary>
             <param name="lib">The parsed SAS XPT file</param>
         </member>
         <member name="M:Savian.SaviTransport.SasVariable.#ctor(System.Int32)">
             <summary>
-            The SASVariable constructor
+                The SASVariable constructor
             </summary>
         </member>
         <member name="T:Savian.SaviTransport.SasMemberType">
             <summary>
-            Indicates the type of data contained within the XPT format
+                Indicates the type of data contained within the XPT format
             </summary>
         </member>
         <member name="T:Savian.SaviTransport.SasVariableType">
             <summary>
-            The SAS variable type. SAS only has 2 variable types: character and numeric but this enum 
-            could be used to expand that in the future for post-processing
+                The SAS variable type. SAS only has 2 variable types: character and numeric but this enum
+                could be used to expand that in the future for post-processing
             </summary>
         </member>
         <member name="T:Savian.SaviTransport.SasXportData">
             <summary>
-            The basic SAS dataset construct
+                The basic SAS dataset construct
             </summary>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.Process(System.IO.FileInfo)">
             <summary>
-            Main method for handling the parsing of the SAS XPT file
+                Main method for handling the parsing of the SAS XPT file
             </summary>
             <param name="fi">The raw file to read and process</param>
             <seealso>http://support.sas.com/techsup/technote/ts140.html</seealso>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.ParseRecord(System.Byte[],System.IO.FileInfo)">
             <summary>
-            Parses the individual records. Depending upon the header for a section, 
-            the parsing will branch off until that section is handled
+                Parses the individual records. Depending upon the header for a section,
+                the parsing will branch off until that section is handled
             </summary>
             <param name="c">The 80 byte record to parse</param>
             <param name="fi">The raw file being read. this is passed in to get file metadata</param>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.ReadRecord(System.Int64)">
             <summary>
-            Read the actual data records and create an observation object
+                Read the actual data records and create an observation object
             </summary>
             <param name="streamLength">The length of the record</param>
             <returns>An observation from a SAS dataset</returns>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.GetObsValue(System.Byte[],Savian.SaviTransport.SasVariable)">
             <summary>
-            Get the value held within the record. For character variables, this is straight-forward.
-            However, numeric values are very complex. They are stored in IBM mainframe float format
-            and may be 4-8 bytes in length but may only be partially populated. If they are an 8 byte
-            double, do a fairly complex conversion and return a .NET double. A single float is padded
-            up to 4 bytes, then a conversion is done. Big endian is handled prior to the conversions.
-            Please see the additional links in the notes here for John Hou's original work and Alan Churchill's
-            variation for C#.
-            
-            This topic is too complex for a simple note. It is best to review the links.
+                Get the value held within the record. For character variables, this is straight-forward.
+                However, numeric values are very complex. They are stored in IBM mainframe float format
+                and may be 4-8 bytes in length but may only be partially populated. If they are an 8 byte
+                double, do a fairly complex conversion and return a .NET double. A single float is padded
+                up to 4 bytes, then a conversion is done. Big endian is handled prior to the conversions.
+                Please see the additional links in the notes here for John Hou's original work and Alan Churchill's
+                variation for C#.
+                This topic is too complex for a simple note. It is best to review the links.
             </summary>
             <param name="p">Bytes to parse</param>
             <param name="sv">The SAS variable that controls the metadata for the value.</param>
@@ -161,80 +163,80 @@
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.BytesAreEmpty(System.Byte[])">
             <summary>
-            Check to see if a string of bytes are empty
+                Check to see if a string of bytes are empty
             </summary>
             <param name="p">Byte string to check</param>
             <returns>Whether the bytes are empty</returns>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.CalculateObsLength">
             <summary>
-            Calculates the length of a SAS observation in the data record
+                Calculates the length of a SAS observation in the data record
             </summary>
             <returns>The observation length</returns>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.ReadVariableRecord(System.Int32)">
             <summary>
-            Reads the SAS variable metadaat contained in the header record
+                Reads the SAS variable metadaat contained in the header record
             </summary>
             <param name="i">The variable to read</param>
             <returns>A SASVariable object</returns>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.ReverseEndian(System.Int16)">
             <summary>
-            Reverses the endianness of an array of bytes
+                Reverses the endianness of an array of bytes
             </summary>
             <param name="p">A short containing 2 bytes</param>
             <returns>The reversed array of bytes</returns>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.ReverseEndian(System.Int32)">
             <summary>
-            Reverses the endianness of an array of bytes
+                Reverses the endianness of an array of bytes
             </summary>
             <param name="p">An int containing 4 bytes</param>
             <returns>The reversed array of bytes</returns>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.ReverseEndian(System.Double)">
             <summary>
-            Reverses the endianness of an array of bytes
+                Reverses the endianness of an array of bytes
             </summary>
             <param name="p">A short containing 8 bytes</param>
             <returns>The reversed array of bytes</returns>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.DetermineType(System.Byte[])">
             <summary>
-            Determines whether a SAS variable is character of numeric
+                Determines whether a SAS variable is character of numeric
             </summary>
             <param name="bytes">An array of bytes</param>
             <returns>The type of SAS variable (num/char)</returns>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.ParseDataSetHeader(Savian.SaviTransport.SasXportData,System.String)">
             <summary>
-            Parses the header information for the dataset
+                Parses the header information for the dataset
             </summary>
             <param name="sasdata">The SAS metadata information</param>
             <param name="rec">The record to parse</param>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.GetNextRecord">
             <summary>
-            Reads the next record in the stream
+                Reads the next record in the stream
             </summary>
             <returns>The next record</returns>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.GetNextVariableRecord">
             <summary>
-            Reads the next variable record
+                Reads the next variable record
             </summary>
             <returns>The byte array that makes up the variable record</returns>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.ParseLibraryHeader(System.String)">
             <summary>
-            Parses the library header record
+                Parses the library header record
             </summary>
             <param name="rec">The record to parse</param>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.ToDataSet">
             <summary>
-            Creates a dataset
+                Creates a dataset
             </summary>
             <param name="lib">The parsed SAS XPT file</param>
         </member>

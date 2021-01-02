@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(ProjectDir)SaviTransport_ReadMe.md&quot; &quot;X:\repos\Savian.NuGet&quot; /Y&#xD;&#xA;copy &quot;$(ProjectDir)Savian.SaviTransport.xml&quot; &quot;X:\repos\Savian.NuGet&quot;  /Y&#xD;&#xA;" />
+    <Exec
+      Command="copy &quot;$(ProjectDir)SaviTransport_ReadMe.md&quot; &quot;X:\repos\Savian.NuGet&quot; /Y&#xD;&#xA;copy &quot;$(ProjectDir)Savian.SaviTransport.xml&quot; &quot;X:\repos\Savian.NuGet&quot;  /Y&#xD;&#xA;" />
   </Target>
 </Project>

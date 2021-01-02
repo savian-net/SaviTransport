@@ -1,54 +1,34 @@
-﻿using Savian.SaviTransport;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Savian.SaviTransport
 {
-    enum FormatType
+    internal enum FormatType
     {
         Format,
         Informat
     }
 
-    enum ContentType
+    internal enum ContentType
     {
         Char,
         Date,
         DateTime
     }
 
-    class Format
+    internal class Format
     {
-        private FormatType _formatType;
-        public FormatType FormatType
-        {
-            get { return _formatType; }
-            set { _formatType = value; }
-        }
-
-        private ContentType _contentType;
-        public ContentType ContentType
-        {
-            get { return _contentType; }
-            set { _contentType = value; }
-        }
-
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-
         public Format(FormatType fmtType, ContentType contentType, string name)
         {
-            this.FormatType = fmtType;
-            this.ContentType = contentType;
-            this.Name = name;
+            FormatType = fmtType;
+            ContentType = contentType;
+            Name = name;
         }
+
+        public FormatType FormatType { get; set; }
+
+        public ContentType ContentType { get; set; }
+
+        public string Name { get; set; }
 
         internal static void AddFormats()
         {
@@ -396,4 +376,3 @@ namespace Savian.SaviTransport
         }
     }
 }
- 

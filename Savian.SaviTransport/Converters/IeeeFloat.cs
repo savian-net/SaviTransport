@@ -1,4 +1,3 @@
-
 namespace Savian.SaviTransport
 {
     internal static class GlobalMembersIeeeFloat
@@ -32,12 +31,12 @@ namespace Savian.SaviTransport
             // byte0    byte1     byte2    byte3
             // ===================================	
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint F = 0;
 
             GlobalMembersFloat2SEF.SingleFloat2SEF(MethodNumber.ByLog, FloatType.IeeeSingleFloat,
-                                                   (double) IeeeSingleFloat, ref S, ref E, ref F);
+                IeeeSingleFloat, ref S, ref E, ref F);
 
             GlobalMembersSEF2Byte.SingleSEF2Byte(FloatType.IeeeSingleFloat, S, E, F, bytes);
 
@@ -53,18 +52,17 @@ namespace Savian.SaviTransport
             // byte0    byte1     byte2    byte3
             // ===================================	
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint F = 0;
 
 
             GlobalMembersFloat2SEF.SingleFloat2SEF(MethodNumber.ByMultiple, FloatType.IeeeSingleFloat,
-                                                   (double) IeeeSingleFloat, ref S, ref E, ref F);
+                IeeeSingleFloat, ref S, ref E, ref F);
 
             GlobalMembersSEF2Byte.SingleSEF2Byte(FloatType.IeeeSingleFloat, S, E, F, bytes);
 
             return 0;
-
         }
 
         // transform byte to ieee single precision float
@@ -76,8 +74,8 @@ namespace Savian.SaviTransport
             // byte0    byte1     byte2    byte3
             // ===================================			
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint F = 0;
 
 
@@ -98,13 +96,14 @@ namespace Savian.SaviTransport
             //                L1                     L2
             // ===================================	
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint L1 = 0;
             uint L2 = 0;
 
-            GlobalMembersFloat2SEF.DoubleFloat2SEF(MethodNumber.ByLog, FloatType.IeeeDoubleFloat, IeeeDoubleFloat, ref S,
-                                                   ref E, ref L1, ref L2);
+            GlobalMembersFloat2SEF.DoubleFloat2SEF(MethodNumber.ByLog, FloatType.IeeeDoubleFloat, IeeeDoubleFloat,
+                ref S,
+                ref E, ref L1, ref L2);
 
             GlobalMembersSEF2Byte.DoubleSEF2Byte(FloatType.IeeeDoubleFloat, S, E, L1, L2, bytes);
 
@@ -121,13 +120,13 @@ namespace Savian.SaviTransport
             //                L1                     L2
             // ===================================	
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint L1 = 0;
             uint L2 = 0;
 
             GlobalMembersFloat2SEF.DoubleFloat2SEF(MethodNumber.ByMultiple, FloatType.IeeeDoubleFloat, IeeeDoubleFloat,
-                                                   ref S, ref E, ref L1, ref L2);
+                ref S, ref E, ref L1, ref L2);
 
             GlobalMembersSEF2Byte.DoubleSEF2Byte(FloatType.IeeeDoubleFloat, S, E, L1, L2, bytes);
 
@@ -144,8 +143,8 @@ namespace Savian.SaviTransport
             //                L1                     L2
             // ===================================			
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint L1 = 0;
             uint L2 = 0;
 
@@ -158,7 +157,7 @@ namespace Savian.SaviTransport
 
         internal static void IeeeSingleFloat2ByteUnion(float IeeeSingleFloat, byte[] bytes)
         {
-            Ieee4Bytes u = new Ieee4Bytes();
+            var u = new Ieee4Bytes();
             u.f = IeeeSingleFloat;
 
             if (Common.Endian == Endian.LittleEndian)
@@ -175,12 +174,11 @@ namespace Savian.SaviTransport
                 bytes[2] = u.b[1];
                 bytes[3] = u.b[0];
             }
-
         }
 
         internal static void Byte2IeeeSingleFloatUnion(byte[] bytes, ref float IeeeSingleFloat)
         {
-            Ieee4Bytes u = new Ieee4Bytes();
+            var u = new Ieee4Bytes();
 
             if (Common.Endian == Endian.LittleEndian)
             {
@@ -202,7 +200,7 @@ namespace Savian.SaviTransport
 
         internal static void IeeeDoubleFloat2ByteUnion(double IeeeDoubleFloat, byte[] bytes)
         {
-            Ieee8Bytes u = new Ieee8Bytes();
+            var u = new Ieee8Bytes();
             u.f = IeeeDoubleFloat;
 
             if (Common.Endian == Endian.LittleEndian)
@@ -215,7 +213,6 @@ namespace Savian.SaviTransport
                 bytes[5] = u.b[5];
                 bytes[6] = u.b[6];
                 bytes[7] = u.b[7];
-
             }
             else // BigEndian
             {
@@ -232,7 +229,7 @@ namespace Savian.SaviTransport
 
         internal static void Byte2IeeeDoubleFloatUnion(byte[] bytes, ref double IeeeDoubleFloat)
         {
-            Ieee8Bytes u = new Ieee8Bytes();
+            var u = new Ieee8Bytes();
 
             if (Common.Endian == Endian.LittleEndian)
             {
@@ -258,8 +255,6 @@ namespace Savian.SaviTransport
             }
 
             IeeeDoubleFloat = u.f;
-
         }
     }
-
 }

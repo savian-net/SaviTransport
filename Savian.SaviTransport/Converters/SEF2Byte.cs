@@ -1,4 +1,3 @@
-
 namespace Savian.SaviTransport
 {
     internal static class GlobalMembersSEF2Byte
@@ -23,7 +22,6 @@ namespace Savian.SaviTransport
 
         internal static int SingleSEF2Byte(FloatType FloatType, byte S, int E, uint F, byte[] bytes)
         {
-
             switch (FloatType)
             {
                 case FloatType.IeeeSingleFloat:
@@ -75,7 +73,6 @@ namespace Savian.SaviTransport
 
         internal static int DoubleSEF2Byte(FloatType FloatType, byte S, int E, uint L1, uint L2, byte[] bytes)
         {
-
             switch (FloatType)
             {
                 case FloatType.IeeeDoubleFloat:
@@ -88,7 +85,7 @@ namespace Savian.SaviTransport
                         bytes[4] = (byte) ((L2 & 0xff000000) >> 24);
                         bytes[5] = (byte) ((L2 & 0x00ff0000) >> 16);
                         bytes[6] = (byte) ((L2 & 0x0000ff00) >> 8);
-                        bytes[7] = (byte) ((L2 & 0x000000ff));
+                        bytes[7] = (byte) (L2 & 0x000000ff);
                     }
                     else
                     {
@@ -99,7 +96,7 @@ namespace Savian.SaviTransport
                         bytes[3] = (byte) ((L2 & 0xff000000) >> 24);
                         bytes[2] = (byte) ((L2 & 0x00ff0000) >> 16);
                         bytes[1] = (byte) ((L2 & 0x0000ff00) >> 8);
-                        bytes[0] = (byte) ((L2 & 0x000000ff));
+                        bytes[0] = (byte) (L2 & 0x000000ff);
                     }
 
                     break;
@@ -113,7 +110,7 @@ namespace Savian.SaviTransport
                         bytes[4] = (byte) ((L2 & 0xff000000) >> 24);
                         bytes[5] = (byte) ((L2 & 0x00ff0000) >> 16);
                         bytes[6] = (byte) ((L2 & 0x0000ff00) >> 8);
-                        bytes[7] = (byte) ((L2 & 0x000000ff));
+                        bytes[7] = (byte) (L2 & 0x000000ff);
                     }
                     else // LittleEndian
                     {
@@ -124,7 +121,7 @@ namespace Savian.SaviTransport
                         bytes[3] = (byte) ((L2 & 0xff000000) >> 24);
                         bytes[2] = (byte) ((L2 & 0x00ff0000) >> 16);
                         bytes[1] = (byte) ((L2 & 0x0000ff00) >> 8);
-                        bytes[0] = (byte) ((L2 & 0x000000ff));
+                        bytes[0] = (byte) (L2 & 0x000000ff);
                     }
 
                     break;

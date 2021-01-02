@@ -1,4 +1,3 @@
-
 namespace Savian.SaviTransport
 {
     internal static class GlobalMembersIbmFloat
@@ -30,12 +29,12 @@ namespace Savian.SaviTransport
             // byte0     byte1    byte2    byte3
             // ===================================			
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint F = 0;
 
-            GlobalMembersFloat2SEF.SingleFloat2SEF(MethodNumber.ByLog, FloatType.IbmSingleFloat, (double) IbmSingleFloat,
-                                                   ref S, ref E, ref F);
+            GlobalMembersFloat2SEF.SingleFloat2SEF(MethodNumber.ByLog, FloatType.IbmSingleFloat, IbmSingleFloat,
+                ref S, ref E, ref F);
 
             GlobalMembersSEF2Byte.SingleSEF2Byte(FloatType.IbmSingleFloat, S, E, F, bytes);
 
@@ -51,12 +50,12 @@ namespace Savian.SaviTransport
             // byte0     byte1    byte2    byte3
             // ===================================			
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint F = 0;
 
             GlobalMembersFloat2SEF.SingleFloat2SEF(MethodNumber.ByMultiple, FloatType.IbmSingleFloat,
-                                                   (double) IbmSingleFloat, ref S, ref E, ref F);
+                IbmSingleFloat, ref S, ref E, ref F);
 
             GlobalMembersSEF2Byte.SingleSEF2Byte(FloatType.IbmSingleFloat, S, E, F, bytes);
 
@@ -72,8 +71,8 @@ namespace Savian.SaviTransport
             // byte0     byte1    byte2    byte3
             // ===================================			
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint F = 0;
 
 
@@ -93,13 +92,13 @@ namespace Savian.SaviTransport
             // byte0     byte1    byte2    byte3    byte4    byte5    byte6    byte7
             // ===================================			
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint L1 = 0;
             uint L2 = 0;
 
             GlobalMembersFloat2SEF.DoubleFloat2SEF(MethodNumber.ByLog, FloatType.IbmDoubleFloat, IbmDoubleFloat, ref S,
-                                                   ref E, ref L1, ref L2);
+                ref E, ref L1, ref L2);
 
             GlobalMembersSEF2Byte.DoubleSEF2Byte(FloatType.IbmDoubleFloat, S, E, L1, L2, bytes);
 
@@ -115,18 +114,17 @@ namespace Savian.SaviTransport
             // byte0     byte1    byte2    byte3    byte4    byte5    byte6    byte7
             // ===================================			
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint L1 = 0;
             uint L2 = 0;
 
             GlobalMembersFloat2SEF.DoubleFloat2SEF(MethodNumber.ByMultiple, FloatType.IbmDoubleFloat, IbmDoubleFloat,
-                                                   ref S, ref E, ref L1, ref L2);
+                ref S, ref E, ref L1, ref L2);
 
             GlobalMembersSEF2Byte.DoubleSEF2Byte(FloatType.IbmDoubleFloat, S, E, L1, L2, bytes);
 
             return 0;
-
         }
 
         internal static int Byte2IbmDoubleFloat(byte[] bytes, ref double IbmDoubleFloat)
@@ -137,8 +135,8 @@ namespace Savian.SaviTransport
             // byte0     byte1    byte2    byte3    byte4    byte5    byte6    byte7
             // ===================================			
 
-            byte S = new byte();
-            int E = 0;
+            var S = new byte();
+            var E = 0;
             uint L1 = 0;
             uint L2 = 0;
 
@@ -147,8 +145,6 @@ namespace Savian.SaviTransport
             GlobalMembersSEF2Float.DoubleSEF2Float(FloatType.IbmDoubleFloat, S, E, L1, L2, ref IbmDoubleFloat);
 
             return 0;
-
         }
     }
 }
-

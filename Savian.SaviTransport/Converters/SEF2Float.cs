@@ -2,7 +2,6 @@ using System;
 
 namespace Savian.SaviTransport
 {
-
     internal static class GlobalMembersSEF2Float
     {
         /***************************************************************************
@@ -47,7 +46,7 @@ namespace Savian.SaviTransport
                     D2 = -126.0;
                     e23 = 8388608.0; // 2^23
 
-                    M = (double) F/e23;
+                    M = F / e23;
 
                     if (S == 0)
                         F1 = 1.0;
@@ -55,9 +54,9 @@ namespace Savian.SaviTransport
                         F1 = -1.0;
 
                     if (0 < E && E < 255)
-                        ret = (float) (F1*(C + M)*Math.Pow(A, E - B));
+                        ret = (float) (F1 * (C + M) * Math.Pow(A, E - B));
                     else if (E == 0 && F != 0)
-                        ret = (float) (F1*M*Math.Pow(A, D2));
+                        ret = (float) (F1 * M * Math.Pow(A, D2));
                     else if (E == 0 && F == 0 && S == 1)
                         ret = -0;
                     else if (E == 0 && F == 0 && S == 0)
@@ -78,7 +77,7 @@ namespace Savian.SaviTransport
                     D = 0.69314718055994529; // log2
                     e24 = 16777216.0; // 2^24
 
-                    M = (double) F/e24;
+                    M = F / e24;
 
                     if (S == 0)
                         F1 = 1.0;
@@ -88,7 +87,7 @@ namespace Savian.SaviTransport
                     if (S == 0 && E == 0 && F == 0)
                         ret = 0F;
                     else
-                        ret = (float) (F1*M*Math.Pow(A, E - B));
+                        ret = (float) (F1 * M * Math.Pow(A, E - B));
 
                     break;
 
@@ -99,7 +98,7 @@ namespace Savian.SaviTransport
                     C = 0.5;
                     e24 = 16777216.0; // 2^24
 
-                    M = (double) F/e24;
+                    M = F / e24;
 
                     if (S == 0)
                         F1 = 1.0;
@@ -107,7 +106,7 @@ namespace Savian.SaviTransport
                         F1 = -1.0;
 
                     if (0 < E)
-                        ret = (float) (F1*(C + M)*Math.Pow(A, E - B));
+                        ret = (float) (F1 * (C + M) * Math.Pow(A, E - B));
                     else if (E == 0 && S == 0)
                         ret = 0F;
                     else if (E == 0 && S == 1) // reserved
@@ -122,7 +121,7 @@ namespace Savian.SaviTransport
         }
 
         internal static int DoubleSEF2Float(FloatType FloatType, byte S, int E, uint L1, uint L2,
-                                          ref double IeeeDoubleFloat)
+            ref double IeeeDoubleFloat)
         {
             double ret = 0;
 
@@ -152,8 +151,8 @@ namespace Savian.SaviTransport
                     D1 = 2047;
                     D2 = 1022.0;
 
-                    M1 = (double) L1/e20;
-                    M2 = (double) L2/e52;
+                    M1 = L1 / e20;
+                    M2 = L2 / e52;
 
                     M = M1 + M2;
 
@@ -163,11 +162,11 @@ namespace Savian.SaviTransport
                         F1 = -1.0;
 
                     if (0 < E && E < D1)
-                        ret = F1*(C + M)*Math.Pow(A, E - B);
+                        ret = F1 * (C + M) * Math.Pow(A, E - B);
                     else if (E == 0 && M != 0)
-                        ret = F1*M*Math.Pow(A, D2);
+                        ret = F1 * M * Math.Pow(A, D2);
                     else if (E == 0 && M == 1)
-                        ret = F1*0;
+                        ret = F1 * 0;
                     else if (E == D1 && M == 0)
                         return -1;
                     else if (E == D1 && M != 0) // Not a number
@@ -183,8 +182,8 @@ namespace Savian.SaviTransport
                     e24 = 16777216.0; // 2^24
                     e56 = 72057594037927936.0; // 2^56
 
-                    M1 = (double) L1/e24;
-                    M2 = (double) L2/e56;
+                    M1 = L1 / e24;
+                    M2 = L2 / e56;
 
                     M = M1 + M2;
 
@@ -196,7 +195,7 @@ namespace Savian.SaviTransport
                     if (S == 0 && E == 0 && M == 0)
                         ret = 0;
                     else
-                        ret = F1*M*Math.Pow(A, E - B);
+                        ret = F1 * M * Math.Pow(A, E - B);
 
                     break;
             }

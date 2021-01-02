@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Savian.SaviTransport
 {
     public class SasVariable
     {
         /// <summary>
-        /// The SASVariable constructor
+        ///     The SASVariable constructor
         /// </summary>
         public SasVariable(int id)
         {
@@ -50,7 +46,6 @@ namespace Savian.SaviTransport
         internal VariableChunkValue MiniChunk { get; set; }
 
         #endregion
-
     }
 
     internal class VariableChunkValue
@@ -68,6 +63,5 @@ namespace Savian.SaviTransport
         internal int LabelLength { get; set; }
 
         #endregion
-
     }
 }

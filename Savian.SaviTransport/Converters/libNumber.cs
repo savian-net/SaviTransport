@@ -2,10 +2,8 @@ using System.Runtime.InteropServices;
 
 namespace Savian.SaviTransport
 {
-
     public static class GlobalMembersLibNumber
     {
-
         //int MemoryByteOrder();
 
         // General method
@@ -81,7 +79,6 @@ namespace Savian.SaviTransport
      ***************************************************************************/
 
 
-
     //C++ TO C# CONVERTER TODO TASK: Unions are not supported in C#, but the following union can be simulated with the StructLayout and FieldOffset attributes.
     //ORIGINAL LINE: union Ieee4Bytes
     [StructLayout(LayoutKind.Explicit)]
@@ -102,4 +99,3 @@ namespace Savian.SaviTransport
         [FieldOffset(0)] public double f;
     }
 }
-

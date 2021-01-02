@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Savian.SaviTransport
 {
@@ -14,7 +10,7 @@ namespace Savian.SaviTransport
             try
             {
                 var subset = new byte[count];
-                if ((count + start) <= bytes.Length)
+                if (count + start <= bytes.Length)
                     Buffer.BlockCopy(bytes, start, subset, 0, count);
                 return subset;
             }
@@ -33,7 +29,7 @@ namespace Savian.SaviTransport
 
         public static int GetIntValue(this object p)
         {
-            return GetIntValue(p, Int32.MinValue);
+            return GetIntValue(p, int.MinValue);
         }
 
         public static string GetStringValue(this object p)
@@ -44,21 +40,18 @@ namespace Savian.SaviTransport
         public static string GetStringValue(this object p, string defaultValue)
         {
             var v = defaultValue;
-            if (p != null)
-            {
-                v = DetermineValue(p);
-            }
+            if (p != null) v = DetermineValue(p);
             return v;
         }
 
         internal static string DetermineValue(object p)
         {
             var t = p.GetType();
-            var i = String.Empty;
+            var i = string.Empty;
 
             if (t == typeof(byte[]))
             {
-                i = Encoding.UTF8.GetString((byte[])p).Replace("\0", "").Trim();
+                i = Encoding.UTF8.GetString((byte[]) p).Replace("\0", "").Trim();
             }
             else
             {
@@ -70,8 +63,11 @@ namespace Savian.SaviTransport
                         i = o.ToString();
                 }
                 else
+                {
                     i = p.ToString();
+                }
             }
+
             return i;
         }
 
@@ -84,7 +80,7 @@ namespace Savian.SaviTransport
                 var t = p.GetType();
                 if (t == typeof(byte[]))
                 {
-                    var bytes = (byte[])p;
+                    var bytes = (byte[]) p;
                     if (bytes.Length == 1)
                         v = bytes[0];
                     else if (bytes.Length == 2)
@@ -99,8 +95,8 @@ namespace Savian.SaviTransport
                         int.TryParse(i, out v);
                 }
             }
+
             return v;
         }
- 
     }
 }

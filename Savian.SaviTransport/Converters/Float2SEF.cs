@@ -31,48 +31,48 @@ namespace Savian.SaviTransport
             return 0;
         }
 
-        internal static int SingleFloat2SEF(MethodNumber MethodNo, FloatType FloatType, double IeeeDoubleFloat, ref byte S,
-                                          ref int E, ref uint F)
+        internal static int SingleFloat2SEF(MethodNumber MethodNo, FloatType FloatType, double IeeeDoubleFloat,
+            ref byte S,
+            ref int E, ref uint F)
         {
-
-            GlobalMembersFloat2SEF.Float2S(IeeeDoubleFloat, ref S);
+            Float2S(IeeeDoubleFloat, ref S);
 
             double fraction = 0;
 
             switch (MethodNo)
             {
                 case MethodNumber.ByMultiple:
-                    GlobalMembersFloat2SEF.Float2EF1(FloatType, IeeeDoubleFloat, ref E, ref fraction);
+                    Float2EF1(FloatType, IeeeDoubleFloat, ref E, ref fraction);
                     break;
                 case MethodNumber.ByLog:
-                    GlobalMembersFloat2SEF.Float2EF2(FloatType, IeeeDoubleFloat, ref E, ref fraction);
+                    Float2EF2(FloatType, IeeeDoubleFloat, ref E, ref fraction);
                     break;
             }
 
-            GlobalMembersFloat2SEF.SingleFrac2Long(FloatType, fraction, ref F);
+            SingleFrac2Long(FloatType, fraction, ref F);
 
             return 0;
         }
 
-        internal static int DoubleFloat2SEF(MethodNumber MethodNo, FloatType FloatType, double IeeeDoubleFloat, ref byte S,
-                                          ref int E, ref uint L1, ref uint L2)
+        internal static int DoubleFloat2SEF(MethodNumber MethodNo, FloatType FloatType, double IeeeDoubleFloat,
+            ref byte S,
+            ref int E, ref uint L1, ref uint L2)
         {
-
-            GlobalMembersFloat2SEF.Float2S(IeeeDoubleFloat, ref S);
+            Float2S(IeeeDoubleFloat, ref S);
 
             double fraction = 0;
 
             switch (MethodNo)
             {
                 case MethodNumber.ByMultiple:
-                    GlobalMembersFloat2SEF.Float2EF1(FloatType, IeeeDoubleFloat, ref E, ref fraction);
+                    Float2EF1(FloatType, IeeeDoubleFloat, ref E, ref fraction);
                     break;
                 case MethodNumber.ByLog:
-                    GlobalMembersFloat2SEF.Float2EF2(FloatType, IeeeDoubleFloat, ref E, ref fraction);
+                    Float2EF2(FloatType, IeeeDoubleFloat, ref E, ref fraction);
                     break;
             }
 
-            GlobalMembersFloat2SEF.DoubleFrac2Long(FloatType, fraction, ref L1, ref L2);
+            DoubleFrac2Long(FloatType, fraction, ref L1, ref L2);
 
             return 0;
         }
@@ -97,7 +97,7 @@ namespace Savian.SaviTransport
                     break;
             }
 
-            double M = fraction*F1;
+            var M = fraction * F1;
 
             F = (uint) M;
 
@@ -126,16 +126,17 @@ namespace Savian.SaviTransport
                     break;
             }
 
-            double M = fraction*F1;
+            var M = fraction * F1;
 
-            L1 = (uint) (M/F2);
-            L2 = (uint) (M - L1*F2);
+            L1 = (uint) (M / F2);
+            L2 = (uint) (M - L1 * F2);
 
             return 0;
         }
 
 
-        internal static int Float2EF1(FloatType FloatType, double IeeeDoubleFloat, ref int exponent, ref double fraction)
+        internal static int Float2EF1(FloatType FloatType, double IeeeDoubleFloat, ref int exponent,
+            ref double fraction)
         {
             /*
              * C >= 0
@@ -169,8 +170,8 @@ namespace Savian.SaviTransport
             double G = 0;
             double V = 0;
             double F = 0;
-            int E = 0;
-            int B = 0;
+            var E = 0;
+            var B = 0;
 
             switch (FloatType)
             {
@@ -212,7 +213,7 @@ namespace Savian.SaviTransport
                 return -1;
 
             if (V < 0)
-                V = (-1.0)*V;
+                V = -1.0 * V;
 
             int i;
 
@@ -224,6 +225,7 @@ namespace Savian.SaviTransport
                     if (V >= C)
                         break;
                 }
+
                 E = B - i;
                 F = V - C;
             }
@@ -235,6 +237,7 @@ namespace Savian.SaviTransport
                     if (V <= C + G)
                         break;
                 }
+
                 E = B + i;
                 F = V - C;
             }
@@ -250,7 +253,8 @@ namespace Savian.SaviTransport
             return 0;
         }
 
-        internal static int Float2EF2(FloatType FloatType, double IeeeDoubleFloat, ref int exponent, ref double fraction)
+        internal static int Float2EF2(FloatType FloatType, double IeeeDoubleFloat, ref int exponent,
+            ref double fraction)
         {
             /*
              * C >= 0
@@ -275,8 +279,8 @@ namespace Savian.SaviTransport
             double C = 0;
             double V = 0;
             double F = 0;
-            int E = 0;
-            int B = 0;
+            var E = 0;
+            var B = 0;
             double exp = 0;
 
             V = IeeeDoubleFloat;
@@ -285,7 +289,7 @@ namespace Savian.SaviTransport
                 return -1;
 
             if (V < 0)
-                V = (-1.0)*V;
+                V = -1.0 * V;
 
             switch (FloatType)
             {
@@ -293,14 +297,14 @@ namespace Savian.SaviTransport
                     A = 2.0; // base
                     B = 127; // exponent offset
                     C = 1.0; // fraction offset
-                    exp = (Math.Log(V)/D) + (double) B; // exponent double expresion
+                    exp = Math.Log(V) / D + B; // exponent double expresion
 
                     break;
                 case FloatType.IeeeDoubleFloat:
                     A = 2.0;
                     B = 1023;
                     C = 1.0;
-                    exp = (Math.Log(V)/D) + (double) B;
+                    exp = Math.Log(V) / D + B;
 
                     break;
                 case FloatType.IbmSingleFloat:
@@ -308,21 +312,21 @@ namespace Savian.SaviTransport
                     A = 16.0;
                     B = 64;
                     C = 0;
-                    exp = (Math.Log(V)/D*0.25 + 1.0) + (double) B;
+                    exp = Math.Log(V) / D * 0.25 + 1.0 + B;
 
                     break;
                 case FloatType.VaxSingleFloat:
                     A = 2.0;
                     B = 128;
                     C = 0.5;
-                    exp = (Math.Log(V)/D + 1.0) + (double) B;
+                    exp = Math.Log(V) / D + 1.0 + B;
 
                     break;
             }
 
             E = (int) exp;
 
-            F = (V/Math.Pow(A, (double) (E - B))) - C;
+            F = V / Math.Pow(A, E - B) - C;
 
             exponent = E;
             fraction = F;
@@ -331,4 +335,3 @@ namespace Savian.SaviTransport
         }
     }
 }
-

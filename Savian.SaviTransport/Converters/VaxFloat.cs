@@ -1,4 +1,3 @@
-
 namespace Savian.SaviTransport
 {
     internal static class GlobalMembersVaxFloat
@@ -34,8 +33,8 @@ namespace Savian.SaviTransport
             var E = 0;
             uint F = 0;
 
-            GlobalMembersFloat2SEF.SingleFloat2SEF(MethodNumber.ByLog, FloatType.VaxSingleFloat, (double) VaxSingleFloat,
-                                                   ref S, ref E, ref F);
+            GlobalMembersFloat2SEF.SingleFloat2SEF(MethodNumber.ByLog, FloatType.VaxSingleFloat, VaxSingleFloat,
+                ref S, ref E, ref F);
 
             GlobalMembersSEF2Byte.SingleSEF2Byte(FloatType.VaxSingleFloat, S, E, F, bytes);
 
@@ -57,7 +56,7 @@ namespace Savian.SaviTransport
 
 
             GlobalMembersFloat2SEF.SingleFloat2SEF(MethodNumber.ByMultiple, FloatType.VaxSingleFloat,
-                                                   (double) VaxSingleFloat, ref S, ref E, ref F);
+                VaxSingleFloat, ref S, ref E, ref F);
 
             GlobalMembersSEF2Byte.SingleSEF2Byte(FloatType.VaxSingleFloat, S, E, F, bytes);
 

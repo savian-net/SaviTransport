@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Savian.SaviTransport
+﻿namespace Savian.SaviTransport
 {
     public enum OutputFormat
     {
@@ -15,7 +11,7 @@ namespace Savian.SaviTransport
     public enum Endian
     {
         BigEndian = 1,
-        LittleEndian = 2,
+        LittleEndian = 2
     }
 
     public enum FloatType
@@ -37,8 +33,6 @@ namespace Savian.SaviTransport
     {
         IbmFloat,
         IeeeFloat,
-        VaxFloat,
+        VaxFloat
     }
-
-
 }

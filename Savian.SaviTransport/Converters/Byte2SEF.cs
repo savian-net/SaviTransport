@@ -1,6 +1,5 @@
 namespace Savian.SaviTransport
 {
-
     internal static class GlobalMembersByte2SEF
     {
         /***************************************************************************
@@ -19,7 +18,6 @@ namespace Savian.SaviTransport
          *   (at your option) any later version.                                   *
          *                                                                         *
          ***************************************************************************/
-
 
 
         internal static void SingleByte2SEF(FloatType floatType, byte[] bytes, ref byte S, ref int E, ref uint F)
@@ -72,7 +70,7 @@ namespace Savian.SaviTransport
 
                     S = (byte) ((b1 & 0x80) >> 7);
 
-                    E = (b1 & 0x7f);
+                    E = b1 & 0x7f;
 
                     F = (uint) ((b2 << 16) + (b3 << 8) + b4);
 
@@ -91,11 +89,10 @@ namespace Savian.SaviTransport
 
                     break;
             }
-
         }
 
         internal static void DoubleByte2SEF(FloatType FloatType, byte[] bytes, ref byte S, ref int E, ref uint L1,
-                                          ref uint L2)
+            ref uint L2)
         {
             byte b1;
             byte b2;
@@ -167,7 +164,7 @@ namespace Savian.SaviTransport
 
                     S = (byte) ((b1 & 0x80) >> 7);
 
-                    E = (b1 & 0x7f);
+                    E = b1 & 0x7f;
 
                     L1 = (uint) ((b2 << 16) + (b3 << 8) + b4);
 
@@ -175,7 +172,6 @@ namespace Savian.SaviTransport
 
                     break;
             }
-
         }
     }
 }

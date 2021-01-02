@@ -1,20 +1,17 @@
-﻿using Savian.SaviTransport;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Text.RegularExpressions;
 
 namespace Savian.SaviTransport
 {
-    static class Common
+    internal static class Common
     {
         /// <summary>
-        /// A list of SAS formats/informats. These are used to help determine whether a field is a date/datetime
+        ///     A list of SAS formats/informats. These are used to help determine whether a field is a date/datetime
         /// </summary>
         public static List<Format> Formats { get; set; }
 
         /// <summary>
-        /// The options passed in on the command line
+        ///     The options passed in on the command line
         /// </summary>
         public static Options Options { get; set; }
 
@@ -28,7 +25,7 @@ namespace Savian.SaviTransport
         }
 
         /// <summary>
-        /// Converts a SAS Date/DateTime value to a .NET DateTime value
+        ///     Converts a SAS Date/DateTime value to a .NET DateTime value
         /// </summary>
         /// <param name="dateTime">The SAS date/datetime value</param>
         /// <param name="date">Whether the value being passed is a SAS date or datetime</param>
@@ -44,7 +41,7 @@ namespace Savian.SaviTransport
         }
 
         /// <summary>
-        /// Converts a .NET datetime value to a SAS date or datetime value
+        ///     Converts a .NET datetime value to a SAS date or datetime value
         /// </summary>
         /// <param name="dt">.NET datetime</param>
         /// <param name="date">Whether a SAS date or datetime value is returned</param>
@@ -54,8 +51,7 @@ namespace Savian.SaviTransport
             var ts = dt - new DateTime(1960, 1, 1);
             if (date)
                 return ts.Days;
-            else
-                return ts.TotalSeconds;
+            return ts.TotalSeconds;
         }
     }
 }

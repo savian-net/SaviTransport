@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Savian.SaviTransport
+﻿namespace Savian.SaviTransport
 {
     public class Converter
     {
@@ -36,7 +30,7 @@ namespace Savian.SaviTransport
 
 
         /// <summary>
-        /// Converts a series of bytes to a double after conversion. Only 8 bytes are allowed.
+        ///     Converts a series of bytes to a double after conversion. Only 8 bytes are allowed.
         /// </summary>
         /// <param name="platform">The platform where the bytes originated</param>
         /// <param name="bytes">The series of byte sto evaulate</param>
@@ -56,11 +50,12 @@ namespace Savian.SaviTransport
                     GlobalMembersIeeeFloat.Byte2IeeeDoubleFloat(bytes, ref result);
                     break;
             }
+
             return result;
         }
 
         /// <summary>
-        /// Converts a series of bytes to a single after conversion. Only 4 bytes are allowed.
+        ///     Converts a series of bytes to a single after conversion. Only 4 bytes are allowed.
         /// </summary>
         /// <param name="platform">The platform where the bytes originated</param>
         /// <param name="bytes">The series of byte sto evaulate</param>
@@ -83,18 +78,22 @@ namespace Savian.SaviTransport
                     GlobalMembersVaxFloat.Byte2VaxSingleFloat(bytes, ref result);
                     break;
             }
+
             return result;
         }
 
         /// <summary>
-        /// Converts a double to a series of bytes.
+        ///     Converts a double to a series of bytes.
         /// </summary>
-        /// <param name="platform">The platform where the bytes are destined. A VAX does not use a double so the return value will always be 0 for a VAX.</param>
+        /// <param name="platform">
+        ///     The platform where the bytes are destined. A VAX does not use a double so the return value will
+        ///     always be 0 for a VAX.
+        /// </param>
         /// <param name="value">The double value to convert to bytes</param>
         /// <returns>A byte array</returns>
         public byte[] ConvertDoubleToBytes(Platform platform, double value)
         {
-            byte[] bytes = new byte[8];
+            var bytes = new byte[8];
             switch (platform)
             {
                 case Platform.IbmFloat:
@@ -111,14 +110,14 @@ namespace Savian.SaviTransport
         }
 
         /// <summary>
-        /// Converts a single to a series of bytes.
+        ///     Converts a single to a series of bytes.
         /// </summary>
         /// <param name="platform">The platform where the bytes are destined.</param>
         /// <param name="value">The single value to convert to bytes</param>
         /// <returns>A byte array</returns>
-        public byte[] ConvertSingleToBytes(Platform platform, Single value)
+        public byte[] ConvertSingleToBytes(Platform platform, float value)
         {
-            byte[] bytes = new byte[8];
+            var bytes = new byte[8];
             switch (platform)
             {
                 case Platform.IbmFloat:
@@ -134,6 +133,5 @@ namespace Savian.SaviTransport
 
             return bytes;
         }
-
     }
 }
