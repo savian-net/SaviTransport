@@ -319,7 +319,7 @@ namespace Savian.SaviTransport
         /// <param name="rec">The record to parse</param>
         private void ParseDataSetHeader(SasXportData sasdata, string rec)
         {
-            sasdata.Name = rec.Substring(24, 8);
+            sasdata.Name = rec.Substring(8, 8).Trim();
             sasdata.SasMemberType = rec.Substring(16, 8).StartsWith("SASDATA") ? SasMemberType.Data : SasMemberType.Unknown;
             sasdata.ReleaseCreated = rec.Substring(24, 8);
             sasdata.HostCreated = rec.Substring(32, 8);
@@ -393,7 +393,10 @@ namespace Savian.SaviTransport
                     var dr = dt.Rows.Add();
                     foreach (var c in obs.Cells)
                     {
-                        dr[c.Column] = c.Value;
+                        if (c.Value is not null)
+                        {
+                            dr[c.Column] = c.Value;
+                        }
                     }
                 }
                 ds.Tables.Add(dt);
