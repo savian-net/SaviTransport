@@ -7,7 +7,7 @@ namespace Test
 {
     class Program
     {
-        private static string _xptFile = @"X:\repos\Utilities\Savian.SaviTransport\sample\shoes.xpt";
+        private static string _xptFile = @"X:\repos\Utilities\Savian.SaviTransport\sample\pr2.xpt";
         private static string _outDir =  @"z:\scratch\SaviTransportTests";
         private static SasXportLib _xptLib;
         static void Main(string[] args)
@@ -16,23 +16,29 @@ namespace Test
             Directory.CreateDirectory(_outDir);
             _xptLib = new SasXportLib();
             _xptLib.Process(_xptFile);
-            WriteLine(($"Total obs: {_xptLib.XportDataSets[0].Observations.Count}"));
+            if (_xptLib.XportDataSets.Count > 0)
+            {
+                WriteLine(($"Total obs: {_xptLib.XportDataSets[0].Observations.Count}"));
 
-            CreateDataSet();
-            StandaloneCode();
+                CreateDataSet();
+                StandaloneCode();
 
-            //Tab-delimited
-            _xptLib.ToDelimitedFile(Path.Combine(_outDir, "Test.txt"), @"\t");
+                //Tab-delimited
+                _xptLib.ToDelimitedFile(Path.Combine(_outDir, "Test.txt"), @"\t");
 
-            //CSV-delimited
-            _xptLib.ToDelimitedFile(Path.Combine(_outDir, "Test.csv"), @",");
+                //CSV-delimited
+                _xptLib.ToDelimitedFile(Path.Combine(_outDir, "Test.csv"), @",");
 
-            //JSON
-            _xptLib.ToJsonFile(Path.Combine(_outDir, "Test.json"));
+                //JSON
+                _xptLib.ToJsonFile(Path.Combine(_outDir, "Test.json"));
 
-            //XML
-            _xptLib.ToXmlFile(Path.Combine(_outDir, "Test.xml"));
-
+                //XML
+                _xptLib.ToXmlFile(Path.Combine(_outDir, "Test.xml"));
+            }
+            else
+            {
+                WriteLine("No datasets found");
+            }
             WriteLine("Press any key to continue...");
             ReadKey();
         }

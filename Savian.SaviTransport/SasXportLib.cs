@@ -78,7 +78,10 @@ namespace Savian.SaviTransport
             {
                 ParseLibraryHeader(rec);
             }
-
+            else if (rec.StartsWith("HEADER RECORD*******MEMBER  HEADER RECORD!!!!!!!"))
+            {
+                //Unknown use
+            }
             // Parse the dataset metadata header
             else if (rec.StartsWith("HEADER RECORD*******DSCRPTR HEADER RECORD!!!!!!!"))
             {
@@ -102,7 +105,13 @@ namespace Savian.SaviTransport
                 }
 
                 //sw.Close();
-                s.Position = s.Position + (80 - s.Position % 80);
+                //TODO: Determine correct formula for below issue. May not 100% work
+                var diff = s.Position % 80;
+                if (diff != 0)
+                {
+                    s.Position = s.Position + (80 - diff);
+                }
+
                 obsLength = CalculateObsLength();
             }
 
@@ -424,7 +433,11 @@ namespace Savian.SaviTransport
                 {
                     var sv = this.XportDataSets[0].Variables[cell.Column];
                     var xeValue = new XElement(sv.Name);
-                    xeValue.Value = cell.Value.ToString();
+                    if (cell.Value is not null)
+                    {
+                        xeValue.Value = cell.Value.ToString();
+                    }
+
                     xeObs.Add(xeValue);
                 }
 
