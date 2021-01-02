@@ -10,19 +10,7 @@ namespace Savian.SaviTransport
         /// </summary>
         public static List<Format> Formats { get; set; }
 
-        /// <summary>
-        ///     The options passed in on the command line
-        /// </summary>
-        public static Options Options { get; set; }
-
-        public static Endian Endian { get; set; }
-
-        internal static void Initialize(Options options)
-        {
-            Options = options;
-            Endian = Endian.LittleEndian;
-            Format.AddFormats();
-        }
+        public static Endian Endian { get; set; } = Endian.LittleEndian;
 
         /// <summary>
         ///     Converts a SAS Date/DateTime value to a .NET DateTime value

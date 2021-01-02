@@ -5,6 +5,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.Json;
+using System.Xml.Linq;
 
 namespace Savian.SaviTransport
 {
@@ -12,7 +14,7 @@ namespace Savian.SaviTransport
     {
         private IPAddress addr;
         private long bytesLeft;
-        private readonly Converter conv;
+        private readonly Converter conv = new Converter();
         private int obsLength;
         private Stream s;
 
@@ -20,26 +22,26 @@ namespace Savian.SaviTransport
 
         private SasXportLib saslib;
 
-        public SasXportLib()
-        {
-            XportDataSets = new List<SasXportData>();
-            conv = new Converter();
-        }
-
         public FileInfo RawFile { get; set; }
         public DateTime CreationDateTime { get; set; }
         public DateTime ModifiedDateTime { get; set; }
         public string HostCreated { get; set; }
         public string ReleaseCreated { get; set; }
-        public List<SasXportData> XportDataSets { get; set; }
+        public List<SasXportData> XportDataSets { get; set; } = new List<SasXportData>();
 
         /// <summary>
         ///     Main method for handling the parsing of the SAS XPT file
         /// </summary>
-        /// <param name="fi">The raw file to read and process</param>
+        /// <param name="transportFile">The raw file to read and process</param>
         /// <seealso>http://support.sas.com/techsup/technote/ts140.html</seealso>
-        public void Process(FileInfo fi)
+        public void Process(string transportFile)
         {
+            if (!File.Exists(transportFile))
+            {
+                throw new FileNotFoundException();
+            }
+            Format.AddFormats();
+            var fi = new FileInfo(transportFile);
             s = new FileStream(fi.FullName, FileMode.Open);
             bytesLeft = s.Length;
             addr = new IPAddress(0);
@@ -169,9 +171,9 @@ namespace Savian.SaviTransport
                         if (format != null)
                         {
                             if (format.ContentType == ContentType.Date)
-                                return Common.ConvertSasToNetDateTime(x, true).ToString(Common.Options.DateFormat);
+                                return Common.ConvertSasToNetDateTime(x, true).ToString("mm-dd-yyyy");
                             if (format.ContentType == ContentType.DateTime)
-                                return Common.ConvertSasToNetDateTime(x, false).ToString(Common.Options.DateTimeFormat);
+                                return Common.ConvertSasToNetDateTime(x, false).ToString("mm-dd-yyyy HH:mm:ss");
                         }
 
                         return x;
@@ -370,11 +372,9 @@ namespace Savian.SaviTransport
                 CultureInfo.InvariantCulture);
         }
 
-
         /// <summary>
         ///     Creates a dataset
         /// </summary>
-        /// <param name="lib">The parsed SAS XPT file</param>
         public DataSet ToDataSet()
         {
             var ds = new DataSet();
@@ -395,6 +395,68 @@ namespace Savian.SaviTransport
             }
 
             return ds;
+        }
+
+        /// <summary>
+        ///     Creates a JSON file
+        /// </summary>
+        /// <param name="lib">The parsed SAS XPT file</param>
+        public void ToJsonFile(string outFile)
+        {
+            var jsonLib = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(outFile, jsonLib);
+        }
+
+        /// <summary>
+        ///     Creates an XML file
+        /// </summary>
+        /// <param name="lib">The parsed SAS XPT file</param>
+        public void ToXmlFile(string outFile)
+        {
+            var xd = new XDocument();
+            var xeRoot = new XElement("SasData");
+
+            for (var i = 0; i < this.XportDataSets[0].Observations.Count; i++)
+            {
+                var xeObs = new XElement("Observation");
+                var obs = this.XportDataSets[0].Observations[i];
+                foreach (var cell in obs.Cells)
+                {
+                    var sv = this.XportDataSets[0].Variables[cell.Column];
+                    var xeValue = new XElement(sv.Name);
+                    xeValue.Value = cell.Value.ToString();
+                    xeObs.Add(xeValue);
+                }
+
+                xeRoot.Add(xeObs);
+            }
+
+            xd.Add(xeRoot);
+            xd.Save(outFile);
+        }
+
+        /// <summary>
+        ///     Creates a delimited file
+        /// </summary>
+        /// <param name="lib">The parsed SAS XPT file</param>
+        public void ToDelimitedFile(string outFile, string delimiter)
+        {
+            var sw = new StreamWriter(outFile);
+            var data = this.XportDataSets[0];
+            foreach (var sv in data.Variables) sw.Write(sv.Name + delimiter);
+            sw.WriteLine();
+
+            foreach (var obs in data.Observations)
+            {
+                foreach (var cell in obs.Cells)
+                    if (cell.Value != null)
+                        sw.Write(cell.Value + delimiter);
+                    else
+                        sw.Write(string.Empty + delimiter);
+                sw.WriteLine();
+            }
+
+            sw.Close();
         }
     }
 }

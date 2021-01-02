@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Savian.SaviTransport
 {
@@ -42,6 +43,8 @@ namespace Savian.SaviTransport
         internal int WriteOrder { get; set; }
         internal int StartByteInObservation { get; set; }
         public SasVariableType VariableType { get; set; }
+        
+        [JsonIgnore]
         public Type NetType { get; set; }
         internal VariableChunkValue MiniChunk { get; set; }
 

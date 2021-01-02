@@ -9,11 +9,6 @@
                 A list of SAS formats/informats. These are used to help determine whether a field is a date/datetime
             </summary>
         </member>
-        <member name="P:Savian.SaviTransport.Common.Options">
-            <summary>
-                The options passed in on the command line
-            </summary>
-        </member>
         <member name="M:Savian.SaviTransport.Common.ConvertSasToNetDateTime(System.Double,System.Boolean)">
             <summary>
                 Converts a SAS Date/DateTime value to a .NET DateTime value
@@ -65,42 +60,6 @@
             <param name="value">The single value to convert to bytes</param>
             <returns>A byte array</returns>
         </member>
-        <member name="T:Savian.SaviTransport.Engine">
-            <summary>
-                Main entry point for SaviTransport
-            </summary>
-        </member>
-        <member name="M:Savian.SaviTransport.Engine.Process(Savian.SaviTransport.Options)">
-            <summary>
-                Processes a SAS transport file and converts it to a return object
-            </summary>
-            <param name="options">The options to use for processing a SAS transport format file</param>
-            <returns>A SasXportLib object containing all of the information, and data, for a SAS transport file</returns>
-        </member>
-        <member name="M:Savian.SaviTransport.Engine.CreateOutputFile(Savian.SaviTransport.SasXportLib)">
-            <summary>
-                Determines the type of output file
-            </summary>
-            <param name="lib">The parsed SAS XPT file</param>
-        </member>
-        <member name="M:Savian.SaviTransport.Engine.CreateJsonFile(Savian.SaviTransport.SasXportLib)">
-            <summary>
-                Creates a JSON file
-            </summary>
-            <param name="lib">The parsed SAS XPT file</param>
-        </member>
-        <member name="M:Savian.SaviTransport.Engine.CreateXmlFile(Savian.SaviTransport.SasXportLib)">
-            <summary>
-                Creates an XML file
-            </summary>
-            <param name="lib">The parsed SAS XPT file</param>
-        </member>
-        <member name="M:Savian.SaviTransport.Engine.CreateDelimitedFile(Savian.SaviTransport.SasXportLib)">
-            <summary>
-                Creates a delimited file
-            </summary>
-            <param name="lib">The parsed SAS XPT file</param>
-        </member>
         <member name="M:Savian.SaviTransport.SasVariable.#ctor(System.Int32)">
             <summary>
                 The SASVariable constructor
@@ -122,11 +81,11 @@
                 The basic SAS dataset construct
             </summary>
         </member>
-        <member name="M:Savian.SaviTransport.SasXportLib.Process(System.IO.FileInfo)">
+        <member name="M:Savian.SaviTransport.SasXportLib.Process(System.String)">
             <summary>
                 Main method for handling the parsing of the SAS XPT file
             </summary>
-            <param name="fi">The raw file to read and process</param>
+            <param name="transportFile">The raw file to read and process</param>
             <seealso>http://support.sas.com/techsup/technote/ts140.html</seealso>
         </member>
         <member name="M:Savian.SaviTransport.SasXportLib.ParseRecord(System.Byte[],System.IO.FileInfo)">
@@ -237,6 +196,23 @@
         <member name="M:Savian.SaviTransport.SasXportLib.ToDataSet">
             <summary>
                 Creates a dataset
+            </summary>
+        </member>
+        <member name="M:Savian.SaviTransport.SasXportLib.ToJsonFile(System.String)">
+            <summary>
+                Creates a JSON file
+            </summary>
+            <param name="lib">The parsed SAS XPT file</param>
+        </member>
+        <member name="M:Savian.SaviTransport.SasXportLib.ToXmlFile(System.String)">
+            <summary>
+                Creates an XML file
+            </summary>
+            <param name="lib">The parsed SAS XPT file</param>
+        </member>
+        <member name="M:Savian.SaviTransport.SasXportLib.ToDelimitedFile(System.String,System.String)">
+            <summary>
+                Creates a delimited file
             </summary>
             <param name="lib">The parsed SAS XPT file</param>
         </member>

@@ -1,13 +1,5 @@
 ﻿namespace Savian.SaviTransport
 {
-    public enum OutputFormat
-    {
-        CSV,
-        TAB,
-        JSON,
-        XML
-    }
-
     public enum Endian
     {
         BigEndian = 1,

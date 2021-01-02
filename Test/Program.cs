@@ -9,41 +9,42 @@ namespace Test
     {
         private static string _xptFile = @"X:\repos\Utilities\Savian.SaviTransport\sample\shoes.xpt";
         private static string _outDir =  @"z:\scratch\SaviTransportTests";
-        private static Engine _engine = new Engine();
+        private static SasXportLib _xptLib;
         static void Main(string[] args)
         {
             WriteLine("Testing SaviTransport");
             Directory.CreateDirectory(_outDir);
+            _xptLib = new SasXportLib();
+            _xptLib.Process(_xptFile);
+            WriteLine(($"Total obs: {_xptLib.XportDataSets[0].Observations.Count}"));
+
             CreateDataSet();
             StandaloneCode();
-            CreateTabDelimitedFile();
-            CreateDelimitedFile();
-            CreateJsonFile();
-            CreateXmlFile();
+
+            //Tab-delimited
+            _xptLib.ToDelimitedFile(Path.Combine(_outDir, "Test.txt"), @"\t");
+
+            //CSV-delimited
+            _xptLib.ToDelimitedFile(Path.Combine(_outDir, "Test.csv"), @",");
+
+            //JSON
+            _xptLib.ToJsonFile(Path.Combine(_outDir, "Test.json"));
+
+            //XML
+            _xptLib.ToXmlFile(Path.Combine(_outDir, "Test.xml"));
+
             WriteLine("Press any key to continue...");
             ReadKey();
         }
 
         private static void CreateDataSet()
         {
-            var engine = new Savian.SaviTransport.Engine();
-            var options = new Savian.SaviTransport.Options()
-            {
-                XptFile = _xptFile
-            };
-            var xptLib = engine.Process(options);
-            var ds = xptLib.ToDataSet();
+            var ds = _xptLib.ToDataSet();
         }
 
         private static void StandaloneCode()
         {
-            var engine = new Savian.SaviTransport.Engine();
-            var options = new Savian.SaviTransport.Options()
-            {
-                XptFile = _xptFile
-            };
-            var xptLib = engine.Process(options);
-            foreach (var ds in xptLib.XportDataSets)
+            foreach (var ds in _xptLib.XportDataSets)
             {
                 WriteLine($"Variables: ");
                 foreach (var v in ds.Variables)
@@ -52,34 +53,6 @@ namespace Test
                 }
                 WriteLine();
             }
-        }
-
-        private static void CreateTabDelimitedFile()
-        {
-            var options = new Options() { XptFile = _xptFile, OutputFile = Path.Combine(_outDir, "Test.txt") };
-            var xportLib = _engine.Process(options);
-            WriteLine(($"Tab - Total obs: {xportLib.XportDataSets[0].Observations.Count}"));
-        }
-
-        private static void CreateDelimitedFile()
-        {
-            var options = new Options() { XptFile = _xptFile, OutputFile = Path.Combine(_outDir, "Test.csv"), TypeOfFile = OutputFormat.CSV, Delimiter = ","};
-            var xportLib = _engine.Process(options);
-            WriteLine(($"CSV - Total obs: {xportLib.XportDataSets[0].Observations.Count}"));
-        }
-
-        private static void CreateJsonFile()
-        {
-            var options = new Options() { XptFile = _xptFile, OutputFile = Path.Combine(_outDir, "Test.json"), TypeOfFile = OutputFormat.JSON };
-            var xportLib = _engine.Process(options);
-            WriteLine(($"JSON - Total obs: {xportLib.XportDataSets[0].Observations.Count}"));
-        }
-
-        private static void CreateXmlFile()
-        {
-            var options = new Options() { XptFile = _xptFile, OutputFile = Path.Combine(_outDir, "Test.xml"), TypeOfFile = OutputFormat.XML };
-            var xportLib = _engine.Process(options);
-            WriteLine(($"XML - Total obs: {xportLib.XportDataSets[0].Observations.Count}"));
         }
     }
 }
